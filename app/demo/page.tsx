@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import Link from 'next/link';
 
 const PRODUCT = {
@@ -43,11 +42,17 @@ export default function DemoStorefront() {
         </div>
       </div>
 
-      <Script
+      {/*
+        Rendered as a plain <script> rather than next/script so the widget is
+        present in the server-rendered HTML and loads even if client-side
+        hydration is delayed or blocked. This also mirrors exactly how the
+        Shopify ScriptTag injects it on a real storefront.
+      */}
+      <script
         src="/widget.js"
         data-product-id={PRODUCT.id}
         data-store-domain={PRODUCT.store}
-        strategy="afterInteractive"
+        async
       />
     </main>
   );
